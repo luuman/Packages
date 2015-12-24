@@ -1,0 +1,12 @@
+[
+	//跳到行首行尾的快捷键
+    { "keys": ["ctrl+k", "ctrl+h"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+    { "keys": ["ctrl+k", "ctrl+e"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+    //在默认浏览器中打开的快捷键
+    // { "keys": ["ctrl+alt+shift+b"], "command": "open_browser"},
+    
+    { "keys": ["ctrl+alt+shift+b"], "command": "open_in_browser"},
+    // Markdown preview
+    // Alt + m可直接在浏览器打开
+    { "keys": ["alt+m"], "command": "markdown_preview", "args": { "target": "browser"} },
+]

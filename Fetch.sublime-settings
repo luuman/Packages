@@ -1,0 +1,14 @@
+{
+	// 文件
+	"files":
+	{
+		"bootstrap": "http://cdn.bootcss.com/bootstrap/2.3.2/js/bootstrap.min.js",
+		"jquery": "http://code.jquery.com/jquery.min.js",
+		"underscore": "https://github.com/jashkenas/underscore/blob/master/underscore-min.js"
+	},
+	// 打包
+	"packages":
+	{
+		"html5_boilerplate": "https://github.com/h5bp/html5-boilerplate/zipball/master"
+	}
+}

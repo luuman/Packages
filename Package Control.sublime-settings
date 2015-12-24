@@ -1,0 +1,21 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AdvancedNewFile",
+		"ConvertToUTF8",
+		"Emmet",
+		"Git",
+		"Markdown Extended",
+		"OmniMarkupPreviewer",
+		"Package Control",
+		"SFTP",
+		"SideBarEnhancements",
+		"SublimeCodeIntel",
+		"SyncedSideBar",
+		"Tag"
+	]
+}
