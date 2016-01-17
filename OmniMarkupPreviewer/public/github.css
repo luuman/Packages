@@ -190,8 +190,8 @@ input,select,textarea,button {
 body {
   min-width: 1020px;
   font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-  color: #333;
-  background-color: #fff;
+  color: #999;
+  background: #4d4d4d;
 }
 
 a {
@@ -355,6 +355,14 @@ pre {
 #markup article {
     padding-top: 30px;
 }
+
+
+
+
+
+
+
+
 
 .markdown-body {
   overflow: hidden;
@@ -656,12 +664,11 @@ pre {
 }
 
 .markdown-body code,.markdown-body tt {
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
+  padding: 0.4em 12px;
+  line-height: 24px;
   margin: 0;
   font-size: 85%;
-  background-color: rgba(0,0,0,0.04);
+  background: #002b36;
   border-radius: 3px;
 }
 
@@ -697,7 +704,7 @@ pre {
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #f7f7f7;
+  background: #002b36;
   border-radius: 3px;
 }
 
@@ -741,7 +748,7 @@ pre {
 }
 
 /* Syntax highlight */
-.codehilite  { background: #ffffff; }
+.codehilite  { background: #002b36;}
 .codehilite .c { color: #999988; font-style: italic } /* Comment */
 .codehilite .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .codehilite .k { color: #000000; font-weight: bold } /* Keyword */
