@@ -7,6 +7,7 @@
 	[
 		"AdvancedNewFile",
 		"ConvertToUTF8",
+		"CSS Primer",
 		"Emmet",
 		"Git",
 		"Markdown Extended",
@@ -14,6 +15,7 @@
 		"Package Control",
 		"SFTP",
 		"SideBarEnhancements",
+		"sublime-github",
 		"SublimeCodeIntel",
 		"SyncedSideBar",
 		"Tag"
