@@ -9,4 +9,6 @@
     // Markdown preview
     // Alt + m可直接在浏览器打开
     { "keys": ["alt+m"], "command": "markdown_preview", "args": { "target": "browser"} },
+	// ctrl+shift+w在是否 Word Wrap之间进行切换（toggle）
+	{ "keys": ["ctrl+shift+w"], "command": "toggle_setting", "args": {"setting": "word_wrap"}},
 ]

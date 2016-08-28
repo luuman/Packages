@@ -42,18 +42,18 @@ class EncodingCache(object):
 		self.max_size = -1
 		self.dirty = False
 		self.load()
-		self.save_on_dirty()
 
 	def save_on_dirty(self):
 		if self.dirty:
-			self.save()
-		sublime.set_timeout(self.save_on_dirty, 10000)
+			return
+		self.dirty = True
+		sublime.set_timeout(self.save, 10000)
 
 	def shrink(self):
 		if self.max_size < 0:
 			return
 		if len(self.cache) > self.max_size:
-			self.dirty = True
+			self.save_on_dirty()
 			del self.cache[self.max_size:]
 
 	def set_max_size(self, max_size):
@@ -80,7 +80,7 @@ class EncodingCache(object):
 						item['file']: item['encoding']
 					})
 				self.cache = new_cache
-				self.dirty = True
+				self.save_on_dirty()
 
 	def save(self):
 		self.shrink()
@@ -99,7 +99,7 @@ class EncodingCache(object):
 		for item in self.cache:
 			if file_name in item:
 				self.cache.remove(item)
-				self.dirty = True
+				self.save_on_dirty()
 				return item.get(file_name)
 		return None
 
@@ -110,7 +110,7 @@ class EncodingCache(object):
 		self.cache.insert(0, {
 			file_name: encoding
 		})
-		self.dirty = True
+		self.save_on_dirty()
 
 encoding_cache = None
 
@@ -137,6 +137,7 @@ def get_settings():
 	SETTINGS['convert_on_save'] = OPT_MAP.get(settings.get('convert_on_save', True))
 	SETTINGS['lazy_reload'] = settings.get('lazy_reload', True)
 	SETTINGS['convert_on_find'] = settings.get('convert_on_find', False)
+	SETTINGS['confidence'] = settings.get('confidence', 0.95)
 
 def get_setting(view, key):
 	# read project specific settings first
@@ -188,6 +189,7 @@ def setup_views():
 		for view in win.views():
 			if not get_setting(view, 'convert_on_load'):
 				break
+			view.settings().set('is_init_dirty_state', view.is_dirty())
 			if view.is_dirty() or view.settings().get('origin_encoding'):
 				show_encoding_status(view)
 				continue
@@ -198,6 +200,10 @@ def setup_views():
 def plugin_loaded():
 	init_settings()
 	setup_views()
+
+def plugin_unloaded():
+	encoding_cache = None
+	sublime.load_settings('ConvertToUTF8.sublime-settings').clear_on_change('get_settings')
 
 def wait_for_ready():
 	if sublime.windows():
@@ -239,7 +245,7 @@ def check_encoding(view, encoding, confidence):
 	result = 'Detected {0} vs {1} with {2:.0%} confidence'.format(encoding, view_encoding, confidence) if encoding else 'Encoding can not be detected'
 	view.set_status('origin_encoding', result)
 	print(result)
-	not_detected = not encoding or confidence < 0.95 or encoding == view_encoding
+	not_detected = not encoding or confidence < SETTINGS['confidence'] or encoding == view_encoding
 	# ST can't detect the encoding
 	if view_encoding in ('Undefined', view.settings().get('fallback_encoding')):
 		if not_detected:
@@ -454,16 +460,44 @@ class ConvertToUtf8Command(sublime_plugin.TextCommand):
 		contents = contents.replace('\r\n', '\n').replace('\r', '\n')
 		regions = sublime.Region(0, view.size())
 		sel = view.sel()
-		rs = [x for x in sel]
+		rs = [(view.rowcol(x.a), view.rowcol(x.b)) for x in sel]
 		vp = view.viewport_position()
 		view.set_viewport_position((0, 0), False)
 		view.replace(edit, regions, contents)
 		sel.clear()
 		for x in rs:
-			sel.add(sublime.Region(x.a, x.b))
+			sel.add(self.find_region(x))
 		view.set_viewport_position(vp, False)
 		stamps[file_name] = stamp
 		sublime.status_message('{0} -> UTF8'.format(encoding))
+
+	def find_region(self, reg):
+		view = self.view
+		(x1, y1), (x2, y2) = reg
+		reverse = x1 > x2 or (x1 == x2 and y1 > y2)
+		# swap these two points for easy computing
+		if reverse:
+			(x1, y1), (x2, y2) = (x2, y2), (x1, y1)
+		_, end1 = view.rowcol(view.line(view.text_point(x1, 0)).b)
+		# exceed one line, narrow the selection
+		if y1 > end1:
+			# forward to end
+			y1 = end1
+		if x1 == x2:
+			if y2 > end1:
+				# backward to start
+				y2 = y1
+		else:
+			_, end2 = view.rowcol(view.line(view.text_point(x2, 0)).b)
+			if y2 > end2:
+				# backward to beginning
+				y2 = 0
+		pt0 = view.text_point(x1, y1)
+		pt1 = view.text_point(x2, y2)
+		# swap the points back
+		if reverse:
+			pt0, pt1 = pt1, pt0
+		return sublime.Region(pt0, pt1)
 
 	def description(self):
 		encoding = self.view.settings().get('origin_encoding')
@@ -547,7 +581,7 @@ class ConvertTextToUtf8Command(sublime_plugin.TextCommand):
 		encoding = detector.result['encoding']
 		confidence = detector.result['confidence']
 		encoding = encoding.upper()
-		if confidence < 0.95 or encoding in SKIP_ENCODINGS:
+		if confidence < SETTINGS['confidence'] or encoding in SKIP_ENCODINGS:
 			return
 		self.view.run_command('convert_text_to_utf8', {'begin_line': begin_line, 'end_line': end_line, 'encoding': encoding})
 
@@ -624,6 +658,11 @@ class ConvertToUTF8Listener(sublime_plugin.EventListener):
 		encoding = view.encoding()
 		if encoding == 'Hexadecimal' or encoding.endswith(' BOM'):
 			return
+
+		#if sublime text already load right, no need to check the file's encoding
+		if encoding not in ('Undefined', view.settings().get('fallback_encoding')):
+			return
+
 		file_name = view.file_name()
 		if not file_name:
 			return
@@ -714,11 +753,13 @@ class ConvertToUTF8Listener(sublime_plugin.EventListener):
 			return
 		if self.check_clones(view):
 			return
-		command = view.command_history(0)
-		command1 = view.command_history(1)
+		command = view.command_history(0, True)
+		command1 = view.command_history(1, True)
 		if command == NONE_COMMAND:
 			if command1[0] == 'convert_to_utf8':
 				view.run_command('redo')
+			else:
+				view.set_scratch(not view.settings().get('is_init_dirty_state', False))
 		elif command[0] == 'convert_to_utf8':
 			if file_name in stamps:
 				if stamps[file_name] == command[1].get('stamp'):

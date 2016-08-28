@@ -11,7 +11,9 @@ If you want to support this plugin, you can donate via PayPal or Alipay. Thanks!
 
 Note
 ------------------
-** If the plugin can not work properly, you might need to install an extra plugin: [Codecs26](https://github.com/seanliang/Codecs26) for Sublime Text 2 or [Codecs33](https://github.com/seanliang/Codecs33) for Sublime Text 3.
+** Windows 7 (Sublime Text 3): When Windows DPI Scaling is set to a value higher than 100%, the file name might not be displayed correctly, please try to add `"dpi_scale": 1` to User Settings of Sublime Text.
+
+** Linux (Sublime Text 2 & 3) and OSX (Sublime Text 3): You will need to install an extra plugin to make ConvertToUTF8 work properly: [Codecs26](https://github.com/seanliang/Codecs26) for Sublime Text 2 or [Codecs33](https://github.com/seanliang/Codecs33) for Sublime Text 3.
 
 Installation
 ------------------
@@ -36,6 +38,7 @@ Please check ConvertToUTF8.sublime-settings file for details. You should save yo
 * convert_on_save: convert the file's content from UTF-8 to its original (or specific) encoding when it is saved (default: true)
 * convert_on_find: convert the text in Find Results view to UTF-8 (default: false)
 * lazy_reload: save file to a temporary location, and reload it in background when switching to other windows or tabs (default: false)
+* confidence: The minimum confidence rate which the converting will be performed automatic. (default: 0.95)
 
 Usage
 ------------------
