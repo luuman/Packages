@@ -1,3 +1,4 @@
 {
-	"git_command": "E:/Program Files/Git/cmd/git.exe",
+    "git_command": "E:/Program Files/Git/cmd/git.exe"
+    // "git_command": "E:/Program Files/Git/git-bash.exe"
 }

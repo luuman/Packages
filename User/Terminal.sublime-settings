@@ -1,0 +1,16 @@
+{
+  // window下终端路径
+  "terminal": "E:/Program Files/Git/git-bash.exe",
+  // "terminal": "C:\\Program Files\\cmder_mini\\cmder.exe",
+  // "parameters": ["/START", "%CWD%"]
+  //  window下终端参数
+  "parameters": []
+  // xterm on GNU/Linux
+  // "terminal": "xterm"
+  // iTerm on OS X
+  // "terminal": "iTerm.sh"
+  // iTerm on OS X with tabs
+  // "terminal": "iTerm.sh",
+  // iTerm2 v3 on OS X
+  // "terminal": "iTerm2-v3.sh"
+}

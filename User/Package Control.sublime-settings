@@ -6,11 +6,12 @@
 	"installed_packages":
 	[
 		"AdvancedNewFile",
+		"AutoFileName",
 		"ayu",
+		"Clipboard Manager",
 		"ConvertToUTF8",
 		"CSS Primer",
 		"Emmet",
-		"Git",
 		"OmniMarkupPreviewer",
 		"Package Control",
 		"SCSS",
@@ -18,6 +19,7 @@
 		"SideBarEnhancements",
 		"sublime-github",
 		"SublimeCodeIntel",
-		"SyncedSideBar"
+		"SyncedSideBar",
+		"Terminal"
 	]
 }
