@@ -1,0 +1,1 @@
+{"sublime_text": ">=3000", "version": "8.6.3", "url": "https://babeljs.io/", "platforms": ["*"], "dependencies": [], "description": "Syntax definitions for ES6 JavaScript with React JSX extensions."}

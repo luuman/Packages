@@ -12,6 +12,7 @@
 	// 前端代码自动补全
 	"Emmet",
 
+	//Git上传（需要配置路径）
 	"Git",
 
 	"sublime-github",
@@ -36,4 +37,8 @@
 	"SyncedSideBar",
 
 	// 代码格式化 Ctrl+Alt+F
-	"Tag"
+	//"Tag"
+
+
+	//终端启动（需要配置路径）
+	"Terminal"
