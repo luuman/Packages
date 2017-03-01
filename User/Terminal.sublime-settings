@@ -1,6 +1,6 @@
 {
   // window下终端路径
-  "terminal": "E:/Program Files/FE/Git/git-bash.exe",
+  "terminal": "C:/FE/Git/git-bash.exe",
   // "terminal": "C:\\Program Files\\cmder_mini\\cmder.exe",
   // "parameters": ["/START", "%CWD%"]
   //  window下终端参数

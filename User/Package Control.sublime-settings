@@ -23,6 +23,7 @@
 		"sublime-github",
 		"SublimeCodeIntel",
 		"SyncedSideBar",
-		"Terminal"
+		"Terminal",
+		"Vue Syntax Highlight"
 	]
 }
