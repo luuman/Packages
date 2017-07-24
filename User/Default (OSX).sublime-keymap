@@ -1,0 +1,6 @@
+[
+	// { "keys": ["super+shift+m"], "command": "word_wrap", "args": { "forward": false } },
+	// { "keys": ["ctrl+shift+m"], "command": "word_wrap", "args": { "forward": true } },
+    { "keys": ["super+shift+w"], "command": "toggle_setting", "args": {"setting": "word_wrap"}}
+
+]

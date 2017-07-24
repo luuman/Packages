@@ -1,0 +1,10 @@
+{
+	"color_scheme": "Packages/ayu/ayu-mirage.tmTheme",
+	"font_size": 12,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "ayu-mirage.sublime-theme",
+	"word_wrap": "false"
+}

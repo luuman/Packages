@@ -1,0 +1,25 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AutoFileName",
+		"ayu",
+		"Babel",
+		"Babel Snippets",
+		"DocBlockr",
+		"EJS 2",
+		"Emmet",
+		"ESLint",
+		"OmniMarkupPreviewer",
+		"Package Control",
+		"SCSS",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-contrib-eslint",
+		"SyncedSideBar",
+		"Vue Syntax Highlight"
+	]
+}
