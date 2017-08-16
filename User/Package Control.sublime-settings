@@ -13,13 +13,16 @@
 		"EJS 2",
 		"Emmet",
 		"ESLint",
+		"LESS",
 		"OmniMarkupPreviewer",
 		"Package Control",
+		"Pug",
 		"SCSS",
 		"SideBarEnhancements",
 		"SublimeLinter",
 		"SublimeLinter-contrib-eslint",
 		"SyncedSideBar",
+		"TypeScript",
 		"Vue Syntax Highlight"
 	]
 }

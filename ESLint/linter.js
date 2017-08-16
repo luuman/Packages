@@ -60,14 +60,17 @@ function format(results) {
     messages.forEach(function(error) {
       var ruleId = error.ruleId ? ' (' + error.ruleId + ')' : '';
       var severity = (error.severity === 1 ? 'Warn ' : 'Error');
+      var hasPosition = (error.line !== undefined && error.column !== undefined);
+      var messageParts = ['\t', severity];
 
-      lines.push([
-        '\t',
-        severity,
-        numberWang((error.line + error.column.toString()).length),
-        error.line + ',' + error.column + ':',
-        error.message + ruleId
-      ].join(' '));
+      if (hasPosition) {
+        messageParts.push(numberWang((error.line + error.column.toString()).length));
+        messageParts.push(error.line + ',' + error.column + ':');
+      }
+
+      messageParts.push(error.message + ruleId);
+
+      lines.push(messageParts.join(' '));
     });
 
     lines.push('');
