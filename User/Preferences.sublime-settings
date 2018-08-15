@@ -86,7 +86,6 @@
 	"ignored_packages":
 	[
 		"Alignment",
-		"DocBlockr",
 		"Vintage"
 	],
 	"indent_guide_options":
